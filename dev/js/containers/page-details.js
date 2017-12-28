@@ -8,9 +8,9 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 const Info = styled.div`
     display: grid;
     grid-area: details;
-    padding: 0% 5% 5% 5%;
+    padding: 0% 5% 7% 5%;
     grid-template-columns: 50%;
-    height: calc(100vh - 109px);
+    height: calc(100vh - 130px);
     grid-template-areas:
     "content picture";
 `
@@ -96,26 +96,27 @@ const Seprator = styled.div`
 
 class PageDetails extends Component {
 
-  nextButton(activePageNumber,activeSectionPagesLength){
+  nextButton(activePageNumber,activeSectionPagesLength,activeSection){
+    console.log(activeSection.pages[activePageNumber+1].subtitle)
     return (
         <ButtonNav onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
-          next page  <img src = '/imgs/arrowDown.png' />
+          {activeSection.pages[activePageNumber+1].subtitle}  <img src = '/imgs/arrowDown.png' />
         </ButtonNav>
     );
   }
-  previousButton(activePageNumber,activeSectionPagesLength){
+  previousButton(activePageNumber,activeSectionPagesLength,activeSection){
     return (
         <ButtonNav onClick={()=>{this.props.previousPage(activePageNumber,activeSectionPagesLength); }}>
-          previous page  <img src = '/imgs/arrowUp.png' />
+          {activeSection.pages[activePageNumber-1].subtitle}  <img src = '/imgs/arrowUp.png' />
         </ButtonNav>
     );
   }
 
-  renderNextPreviousButtons(activePageNumber,activeSectionPagesLength) {
+  renderNextPreviousButtons(activePageNumber,activeSectionPagesLength,activeSection) {
     if (activeSectionPagesLength > 1 && activePageNumber == 0) {
       return (
         <ButtonDiv>
-         {this.nextButton(activePageNumber,activeSectionPagesLength)}
+         {this.nextButton(activePageNumber,activeSectionPagesLength,activeSection)}
        </ButtonDiv>
       );
     }
@@ -129,14 +130,14 @@ class PageDetails extends Component {
     else if (activePageNumber == activeSectionPagesLength -1) {
       return (
         <ButtonDiv>
-          {this.previousButton(activePageNumber,activeSectionPagesLength)}
+          {this.previousButton(activePageNumber,activeSectionPagesLength,activeSection)}
         </ButtonDiv>
     );
     } else {
       return (
         <ButtonDiv>
-          {this.previousButton(activePageNumber,activeSectionPagesLength)}
-          {this.nextButton(activePageNumber,activeSectionPagesLength)}
+          {this.previousButton(activePageNumber,activeSectionPagesLength,activeSection)}
+          {this.nextButton(activePageNumber,activeSectionPagesLength,activeSection)}
         </ButtonDiv>
       );
     }
@@ -164,7 +165,7 @@ class PageDetails extends Component {
 
           <h2>{activePage.subtitle}</h2>
           <p>{activePage.body}</p>
-          {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length)}
+          {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length,activeSection)}
         </Content>
         <Picture>
           <img src = {activePage.coverPic} />
