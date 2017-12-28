@@ -1,7 +1,8 @@
-export const activatePage = (section) => {
+export const activatePage = (section,i) => {
   return {
     type:"ACTIVATE_PAGE",
     payload: section,
+    index: i
   }
 };
 
@@ -19,9 +20,10 @@ export const previousPage = (section) => {
   }
 };
 
-export const activateSection = (section) => {
+export const activateSection = (section,i) => {
   return {
     type:"ACTIVATE_SECTION",
-    payload: section
+    payload: section,
+    index: i
   }
 };

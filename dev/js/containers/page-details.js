@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {activatePage,nextPage,previousPage} from '../actions/index';
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 const Info = styled.div`
     display: grid;
@@ -51,8 +52,11 @@ const Picture = styled.div`
   overflow: hidden;
   grid-area: picture;
   box-shadow: 0px 2px 51px 0px rgba(0, 0, 0, 0.5);
+  background-color: black;
   > img {
-    width:100%;
+    height:100%;
+    display: block;
+    margin: 0 auto;
   }
 `
 const ButtonNav = styled.button`
@@ -87,18 +91,19 @@ const Seprator = styled.div`
 
 class PageDetails extends Component {
 
-  nextButton(){
+  nextButton(activePageNumber){
     return (
-      <ButtonNav onClick={()=>{this.props.nextPage(this.props.activeSection); }}>
-        next page  <img src = '/imgs/arrowDown.png' />
-      </ButtonNav>
+        <ButtonNav onClick={()=>{this.props.nextPage(this.props.activeSection,activePageNumber); }}>
+          next page  <img src = '/imgs/arrowDown.png' />
+        </ButtonNav>
     );
   }
-  previousButton(){
+  previousButton(activePageNumber){
     return (
-    <ButtonNav onClick={()=>{this.props.previousPage(this.props.activeSection); }}>
-      previous page  <img src = '/imgs/arrowUp.png' />
-    </ButtonNav>);
+        <ButtonNav onClick={()=>{this.props.previousPage(this.props.activeSection,activePageNumber); }}>
+          previous page  <img src = '/imgs/arrowUp.png' />
+        </ButtonNav>
+    );
   }
 
   renderNextPreviousButtons() {
@@ -106,7 +111,7 @@ class PageDetails extends Component {
     if (this.props.activeSection.pages.length > 1 && activePageNumber == 0) {
       return (
         <ButtonDiv>
-         {this.nextButton()}
+         {this.nextButton(activePageNumber)}
        </ButtonDiv>
       );
     }
@@ -120,14 +125,14 @@ class PageDetails extends Component {
     else if (activePageNumber == this.props.activeSection.pages.length -1) {
       return (
         <ButtonDiv>
-          {this.previousButton()}
+          {this.previousButton(activePageNumber)}
         </ButtonDiv>
     );
     } else {
       return (
         <ButtonDiv>
-          {this.previousButton()}
-          {this.nextButton()}
+          {this.previousButton(activePageNumber)}
+          {this.nextButton(activePageNumber)}
         </ButtonDiv>
       );
     }
@@ -142,6 +147,13 @@ class PageDetails extends Component {
     }
     this.props.activatePage(this.props.activeSection,0);
     return (
+      <ReactCSSTransitionGroup
+        transitionName = "fade"
+        transitionEnterTimeout={600}
+        transitionLeaveTimeout={600}
+        transitionAppear={true}
+        transitionAppearTimeout={600}
+        >
       <Info>
         <Content>
           <h1>{this.props.activeSection.title}<Seprator /></h1>
@@ -154,6 +166,7 @@ class PageDetails extends Component {
           <img src = {this.props.activeSection.pages[this.props.activeSection.activePage].coverPic} />
         </Picture>
       </Info>
+      </ReactCSSTransitionGroup>
     );
   }
 }

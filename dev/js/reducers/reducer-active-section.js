@@ -1,7 +1,9 @@
 export default function (state={} , action) {
   switch(action.type) {
     case "ACTIVATE_SECTION":
-      return action.payload;
+      var newState = Object.assign({},action.payload)
+      newState.activeSection = action.index;
+      return newState;
       break;
     case "ACTIVATE_PAGE":
       return action.payload

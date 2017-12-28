@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {activateSection} from '../actions/index';
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 const Header = styled.div`
     grid-area: header;
@@ -18,7 +19,6 @@ const PageNav = styled.ul`
     > div {
       float: left;
       display: block;
-      color: ${props => props.active ? 'white;' : '#A4A4A4;'};
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
@@ -41,31 +41,28 @@ const Logo = styled.img`
 `
 
 const HeaderItems = styled.li`
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-  &:hover {
-    background-color: #555;
-    color: white;
-  }
-  &:active {
-    background-color: #4CAF50;
-    color: white;
-  }
+    color: ${props => props.active == 'true' ? 'white;' : '#A4A4A4;'};
 `
+
+
+const animationName = keyframes`
+  0% { background-color: transparent; }
+  100% { background-color: green; }
+`
+
 
 class SectionsList extends Component {
   createListItems() {
-    this.props.activateSection(this.props.sections[0]);
+    this.props.activateSection(this.props.sections[0],0);
+    var selectedIndex = 0;
     return this.props.sections.map((section,i) => {
       return (
-        <div key={i}>
-            <li
-              onClick={()=> {this.props.activateSection(section);}}
+        <div key={i} id={'list'+i}>
+            <HeaderItems active = {selectedIndex == i ? 'true' : 'false'}
+              onClick={()=> {this.props.activateSection(section,i); selectedIndex=i; console.log(selectedIndex)}}
               >
               {section.title}
-            </li>
+            </HeaderItems>
         </div>
       );
     })
@@ -75,7 +72,7 @@ class SectionsList extends Component {
       <Header>
         <Logo src = '/imgs/logo.png'/>
         <PageNav>
-          {this.createListItems()}
+            {this.createListItems()}
         </PageNav>
       </Header>
     );
@@ -84,7 +81,7 @@ class SectionsList extends Component {
 
 function mapStateToProps(state) {
   return {
-    sections: state.sections
+    sections: state.sections,
   };
 }
 
