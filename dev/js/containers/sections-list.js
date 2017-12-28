@@ -25,10 +25,6 @@ const PageNav = styled.ul`
       font-family: 'Heebo', sans-serif;
       font-weight: 300;
       font-size: 20px;
-      transition: color 0.3s ease-out;
-      &:hover {
-        color: #B80F0A;
-      }
     }
 `
 const Logo = styled.img`
@@ -41,25 +37,32 @@ const Logo = styled.img`
 `
 
 const HeaderItems = styled.li`
+    transition: color 0.3s ease-out;
     color: ${props => props.active == 'true' ? 'white;' : '#A4A4A4;'};
+    &:hover {
+      color: #B80F0A;
+    }
 `
 
 
 const animationName = keyframes`
-  0% { background-color: transparent; }
-  100% { background-color: green; }
+  0% { opacity: 1; }
+  50% { opacity: 0;}
+  100% { opacity: 1; }
 `
-
+const fadeOutIn = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0;}
+  100% { opacity: 1; }
+`
 
 class SectionsList extends Component {
   createListItems() {
-    this.props.activateSection(this.props.sections[0],0);
-    var selectedIndex = 0;
     return this.props.sections.map((section,i) => {
       return (
         <div key={i} id={'list'+i}>
-            <HeaderItems active = {selectedIndex == i ? 'true' : 'false'}
-              onClick={()=> {this.props.activateSection(section,i); selectedIndex=i; console.log(selectedIndex)}}
+            <HeaderItems active = {this.props.activeIndex.activeSection == i ? 'true' : 'false'}
+              onClick={()=> {this.props.activateSection(i);}}
               >
               {section.title}
             </HeaderItems>
@@ -82,6 +85,7 @@ class SectionsList extends Component {
 function mapStateToProps(state) {
   return {
     sections: state.sections,
+    activeIndex: state.activeIndex
   };
 }
 

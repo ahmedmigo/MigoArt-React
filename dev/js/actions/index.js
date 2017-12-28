@@ -1,29 +1,29 @@
-export const activatePage = (section,i) => {
+export const activatePage = (pageIndex) => {
   return {
     type:"ACTIVATE_PAGE",
-    payload: section,
-    index: i
+    payload: pageIndex,
   }
 };
 
-export const nextPage = (section) => {
+export const nextPage = (pageIndex,totalPagesNumber) => {
   return {
     type:"NEXT_PAGE",
-    payload: section,
+    payload: {pageIndex: pageIndex,
+              totalPagesNumber:totalPagesNumber}
   }
 };
 
-export const previousPage = (section) => {
+export const previousPage = (pageIndex,totalPagesNumber) => {
   return {
     type:"PREVIOUS_PAGE",
-    payload: section,
+    payload: {pageIndex: pageIndex,
+              totalPagesNumber:totalPagesNumber}
   }
 };
 
-export const activateSection = (section,i) => {
+export const activateSection = (sectionIndex) => {
   return {
     type:"ACTIVATE_SECTION",
-    payload: section,
-    index: i
+    payload: sectionIndex,
   }
 };

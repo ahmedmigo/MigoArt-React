@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import ActiveSectionReducer from './reducer-active-section'
+import ActiveIndexReducer from './reducer-active-index'
 import SectionsReducer from './reducer-sections'
 
 const allReducers = combineReducers({
-  sections: SectionsReducer,
-  activeSection: ActiveSectionReducer,
+  activeIndex: ActiveIndexReducer,
+  sections: SectionsReducer
 });
 
 export default allReducers;

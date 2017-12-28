@@ -17,7 +17,8 @@ const Info = styled.div`
 
 const Content = styled.div`
   display: grid;
-  grid-template-rows: 70px 50px auto 30px;
+  grid-template-rows: 10% 10% 75% 5%;
+  height: inherit;
   grid-template-areas:
                       "mainHeader"
                       "subTitle"
@@ -42,6 +43,8 @@ const Content = styled.div`
   > p {
     grid-area:body;
     align-self:start;
+    overflow:auto;
+    height:93%;
     color: white;
     font-family: 'Heebo', sans-serif;
     font-size: 20px;
@@ -54,7 +57,7 @@ const Picture = styled.div`
   box-shadow: 0px 2px 51px 0px rgba(0, 0, 0, 0.5);
   background-color: black;
   > img {
-    height:100%;
+    width:100%;
     display: block;
     margin: 0 auto;
   }
@@ -80,6 +83,7 @@ const ButtonDiv = styled.div`
   grid-area:nextPageNav;
   width: 100%;
   text-align:center;
+  align-self: center;
 `
 
 const Seprator = styled.div`
@@ -89,50 +93,50 @@ const Seprator = styled.div`
   border-radius: 3px;
 `
 
+
 class PageDetails extends Component {
 
-  nextButton(activePageNumber){
+  nextButton(activePageNumber,activeSectionPagesLength){
     return (
-        <ButtonNav onClick={()=>{this.props.nextPage(this.props.activeSection,activePageNumber); }}>
+        <ButtonNav onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
           next page  <img src = '/imgs/arrowDown.png' />
         </ButtonNav>
     );
   }
-  previousButton(activePageNumber){
+  previousButton(activePageNumber,activeSectionPagesLength){
     return (
-        <ButtonNav onClick={()=>{this.props.previousPage(this.props.activeSection,activePageNumber); }}>
+        <ButtonNav onClick={()=>{this.props.previousPage(activePageNumber,activeSectionPagesLength); }}>
           previous page  <img src = '/imgs/arrowUp.png' />
         </ButtonNav>
     );
   }
 
-  renderNextPreviousButtons() {
-    var activePageNumber = this.props.activeSection.activePage;
-    if (this.props.activeSection.pages.length > 1 && activePageNumber == 0) {
+  renderNextPreviousButtons(activePageNumber,activeSectionPagesLength) {
+    if (activeSectionPagesLength > 1 && activePageNumber == 0) {
       return (
         <ButtonDiv>
-         {this.nextButton(activePageNumber)}
+         {this.nextButton(activePageNumber,activeSectionPagesLength)}
        </ButtonDiv>
       );
     }
-    else if (this.props.activeSection.pages.length <= 1){
+    else if (activeSectionPagesLength <= 1){
       return (
         <ButtonDiv>
         </ButtonDiv>
       );
 
     }
-    else if (activePageNumber == this.props.activeSection.pages.length -1) {
+    else if (activePageNumber == activeSectionPagesLength -1) {
       return (
         <ButtonDiv>
-          {this.previousButton(activePageNumber)}
+          {this.previousButton(activePageNumber,activeSectionPagesLength)}
         </ButtonDiv>
     );
     } else {
       return (
         <ButtonDiv>
-          {this.previousButton(activePageNumber)}
-          {this.nextButton(activePageNumber)}
+          {this.previousButton(activePageNumber,activeSectionPagesLength)}
+          {this.nextButton(activePageNumber,activeSectionPagesLength)}
         </ButtonDiv>
       );
     }
@@ -142,10 +146,10 @@ class PageDetails extends Component {
   //   return true
   // }
   render() {
-    if (!this.props.activeSection) {
-      return <h4>NoPage found</h4>
-    }
-    this.props.activatePage(this.props.activeSection,0);
+
+    var activeSection = this.props.sections[this.props.activeIndex.activeSection];
+    var activePage = activeSection.pages[this.props.activeIndex.activePage];
+    console.log(activeSection.title,activePage)
     return (
       <ReactCSSTransitionGroup
         transitionName = "fade"
@@ -156,14 +160,14 @@ class PageDetails extends Component {
         >
       <Info>
         <Content>
-          <h1>{this.props.activeSection.title}<Seprator /></h1>
+          <h1>{activeSection.title}<Seprator /></h1>
 
-          <h2>{this.props.activeSection.pages[this.props.activeSection.activePage].subtitle}</h2>
-          <p>{this.props.activeSection.pages[this.props.activeSection.activePage].body}</p>
-          {this.renderNextPreviousButtons()}
+          <h2>{activePage.subtitle}</h2>
+          <p>{activePage.body}</p>
+          {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length)}
         </Content>
         <Picture>
-          <img src = {this.props.activeSection.pages[this.props.activeSection.activePage].coverPic} />
+          <img src = {activePage.coverPic} />
         </Picture>
       </Info>
       </ReactCSSTransitionGroup>
@@ -174,7 +178,8 @@ class PageDetails extends Component {
 
 function mapStateToProps(state) {
   return {
-    activeSection: state.activeSection,
+    sections: state.sections,
+    activeIndex: state.activeIndex
   };
 }
 
