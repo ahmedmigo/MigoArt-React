@@ -12,6 +12,14 @@ const Info = styled.div`
     height:88vh;
     grid-template-areas:
     "content picture";
+    @media (max-width: 900px) {
+      grid-template-rows: 30% 70%;
+      grid-template-columns: 100%;
+      grid-template-areas:
+      "picture"
+      "content" ;
+    }
+
 `
 const BubblePagercontainer = styled.div`
     grid-area:bubblePager;

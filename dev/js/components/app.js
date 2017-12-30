@@ -6,10 +6,12 @@ import styled from 'styled-components'
 const Outer = styled.div`
     background-color: #0C0C0C;
     position : fixed;
+    display:block;
+    overflow:auto;
     width:100vw;
-    height: 100vh;
     margin: -8px 0px -8px -8px;
     display:grid;
+    padding-bottom: 28px;
     grid-template-rows: 62px auto 5%;
     grid-template-columns: 2% auto 2%;
     grid-template-areas:
@@ -17,6 +19,13 @@ const Outer = styled.div`
     "magrin-left details magrin-right"
     "magrin-left magrin-buttom magrin-right";
     align-items: start;
+    @media (max-width: 980px) {
+      grid-template-rows: 62px auto;
+      position : relative;
+      padding-bottom: 20px;
+
+
+    }
 `
 
 const HeaderWrapper = styled.div`
