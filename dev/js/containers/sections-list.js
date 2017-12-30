@@ -5,9 +5,6 @@ import {activateSection} from '../actions/index';
 import styled, {keyframes} from 'styled-components'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
-const Header = styled.div`
-    grid-area: header;
-`
 
 const PageNav = styled.ul`
     list-style-type: none;
@@ -72,12 +69,12 @@ class SectionsList extends Component {
   }
   render() {
     return (
-      <Header>
+      <div>
         <Logo src = '/imgs/logo.png'/>
         <PageNav>
             {this.createListItems()}
         </PageNav>
-      </Header>
+      </div>
     );
   }
 }

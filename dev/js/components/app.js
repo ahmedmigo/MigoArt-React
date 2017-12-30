@@ -6,19 +6,33 @@ import styled from 'styled-components'
 const Outer = styled.div`
     background-color: #0C0C0C;
     position : fixed;
-    width:100%;
+    width:100vw;
+    height: 100vh;
     margin: -8px 0px -8px -8px;
     display:grid;
-    grid-template-rows: 62px auto;
+    grid-template-rows: 62px auto 5%;
+    grid-template-columns: 2% auto 2%;
     grid-template-areas:
-    "header"
-    "details";
+    "magrin-left header magrin-right"
+    "magrin-left details magrin-right"
+    "magrin-left magrin-buttom magrin-right";
+    align-items: start;
 `
 
+const HeaderWrapper = styled.div`
+    grid-area: header;
+`
+const PageDetailsWrapper = styled.div`
+    grid-area: details;
+`
 const App = () => (
     <Outer>
-      <SectionsList />
-      <PageDetails />
+      <HeaderWrapper>
+        <SectionsList />
+      </HeaderWrapper>
+      <PageDetailsWrapper>
+        <PageDetails />
+      </PageDetailsWrapper>
     </Outer>
 );
 

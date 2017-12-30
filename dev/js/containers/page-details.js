@@ -4,29 +4,33 @@ import {bindActionCreators} from 'redux';
 import {activatePage,nextPage,previousPage} from '../actions/index';
 import styled, {keyframes} from 'styled-components'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import BubblePager from './bubble-Pager'
 
 const Info = styled.div`
     display: grid;
-    grid-area: details;
-    padding: 0% 5% 7% 5%;
     grid-template-columns: 50%;
-    height: calc(100vh - 130px);
+    height:88vh;
     grid-template-areas:
     "content picture";
 `
-
+const BubblePagercontainer = styled.div`
+    grid-area:bubblePager;
+    align-self:center;
+    justify-self: center;
+`
 const Content = styled.div`
   display: grid;
-  grid-template-rows: 10% 10% 75% 5%;
+  grid-template-columns: 8% 87%;
+  grid-template-rows: 5% 14% 10% auto 5% 5%;
   height: inherit;
-  grid-template-areas:
-                      "mainHeader"
-                      "subTitle"
-                      "body"
-                      "nextPageNav";
+  grid-template-areas:"bubblePager margin-top"
+                      "bubblePager mainHeader"
+                      "bubblePager subTitle"
+                      "bubblePager body"
+                      "bubblePager nextPageNav"
+                      "bubblePager margin-bottom";
   background: #272727;
   grid-area: content;
-  padding: 5%;
   > h1 {
     grid-area:mainHeader;
     align-self:center;
@@ -37,6 +41,7 @@ const Content = styled.div`
   > h2 {
     grid-area:subTitle;
     color: white;
+    align-self:center;
     font-family: 'Yeseva One', cursive;
     font-size: 30px;
   }
@@ -44,7 +49,8 @@ const Content = styled.div`
     grid-area:body;
     align-self:start;
     overflow:auto;
-    height:93%;
+    height:50vh;
+    margin-top: 0px;
     color: white;
     font-family: 'Heebo', sans-serif;
     font-size: 20px;
@@ -83,6 +89,7 @@ const ButtonDiv = styled.div`
   grid-area:nextPageNav;
   width: 100%;
   text-align:center;
+  justify-self: center;
   align-self: center;
 `
 
@@ -162,10 +169,12 @@ class PageDetails extends Component {
       <Info>
         <Content>
           <h1>{activeSection.title}<Seprator /></h1>
-
           <h2>{activePage.subtitle}</h2>
           <p>{activePage.body}</p>
           {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length,activeSection)}
+          <BubblePagercontainer>
+            <BubblePager/>
+          </BubblePagercontainer>
         </Content>
         <Picture>
           <img src = {activePage.coverPic} />
