@@ -50,7 +50,8 @@ const Content = styled.div`
     grid-area:mainHeader;
     align-self:center;
     color: white;
-    font-family: 'Yeseva One', cursive;
+    font-family: 'Heebo', sans-serif;
+    font-weight: 100;
     font-size: 48px;
     @media (max-width: 980px) {
       font-size: 80px;
@@ -60,7 +61,9 @@ const Content = styled.div`
     grid-area:subTitle;
     color: white;
     align-self:center;
-    font-family: 'Yeseva One', cursive;
+    font-family: 'Heebo', sans-serif;
+    font-weight: 500;
+    margin-bottom: 0px;
     font-size: 30px;
     animation:  ${uptransation} 0.5s ease-out forwards;
     @media (max-width: 980px) {
@@ -98,22 +101,23 @@ const Picture = styled.div`
   }
 `
 const ButtonNav = styled.button`
-  font-family: 'Yeseva One', cursive;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 500;
   font-size: 20px;
-  color: #979797;
+  color: ${props => props.next ? '#000000' : '#161616'};
   border: none;
   margin-left: 10px;
   margin-right: 10px;
   background-color: Transparent;
   transition: color 0.3s ease-out;
   &:hover {
-    color: white;
+    color: #B80F0A;
   }
   &:focus {
     outline: none;
   }
   @media (max-width: 980px) {
-    font-size: 30px;
+    font-size: 60px;
   }
 `
 const ButtonDiv = styled.div`
@@ -122,6 +126,13 @@ const ButtonDiv = styled.div`
   text-align:center;
   justify-self: center;
   align-self: center;
+`
+
+const ButtonArrow = styled.img`
+  height: 10px;
+  @media (max-width: 980px) {
+    height: 35px;
+  }
 `
 
 const Seprator = styled.div`
@@ -159,15 +170,15 @@ class PageDetails extends Component {
   nextButton(activePageNumber,activeSectionPagesLength,activeSection){
     console.log(activeSection.pages[activePageNumber+1].subtitle)
     return (
-        <ButtonNav key={'nextButton + activePageNumber'} onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
-          {activeSection.pages[activePageNumber+1].subtitle}  <img src = '/imgs/arrowDown.png' />
+        <ButtonNav next key={'nextButton + activePageNumber'} onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
+          {activeSection.pages[activePageNumber+1].subtitle}  <ButtonArrow src = '/imgs/arrowDown.png' />
         </ButtonNav>
     );
   }
   previousButton(activePageNumber,activeSectionPagesLength,activeSection){
     return (
         <ButtonNav key={'previousButton + activePageNumber'} onClick={()=>{this.props.previousPage(activePageNumber,activeSectionPagesLength); }}>
-          {activeSection.pages[activePageNumber-1].subtitle}  <img src = '/imgs/arrowUp.png' />
+          {activeSection.pages[activePageNumber-1].subtitle}  <ButtonArrow src = '/imgs/arrowUp.png' />
         </ButtonNav>
     );
   }
@@ -196,8 +207,8 @@ class PageDetails extends Component {
     } else {
       return (
         <ButtonDiv key={'twoButtons'}>
-          {this.previousButton(activePageNumber,activeSectionPagesLength,activeSection)}
           {this.nextButton(activePageNumber,activeSectionPagesLength,activeSection)}
+          {this.previousButton(activePageNumber,activeSectionPagesLength,activeSection)}
         </ButtonDiv>
       );
     }
