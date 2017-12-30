@@ -12,12 +12,15 @@ const Info = styled.div`
     height:88vh;
     grid-template-areas:
     "content picture";
-    @media (max-width: 900px) {
-      grid-template-rows: 30% 70%;
+    padding-bottom: 0px;
+    @media (max-width: 980px) {
+      grid-template-rows: 900px 70%;
       grid-template-columns: 100%;
+      padding-bottom: 38px;
       grid-template-areas:
       "picture"
       "content" ;
+      height: max-content;
     }
 
 `
@@ -39,6 +42,10 @@ const Content = styled.div`
                       "bubblePager margin-bottom";
   background: #272727;
   grid-area: content;
+  @media (max-width: 980px) {
+    height: fit-content;
+    padding-bottom: 30px;
+  }
   > h1 {
     grid-area:mainHeader;
     align-self:center;
@@ -63,6 +70,9 @@ const Content = styled.div`
     font-family: 'Heebo', sans-serif;
     font-size: 20px;
     font-weight: 100;
+    @media (max-width: 980px) {
+      height: 100%;
+    }
   }
 `
 const Picture = styled.div`
