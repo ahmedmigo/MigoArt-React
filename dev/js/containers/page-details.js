@@ -52,6 +52,9 @@ const Content = styled.div`
     color: white;
     font-family: 'Yeseva One', cursive;
     font-size: 48px;
+    @media (max-width: 980px) {
+      font-size: 80px;
+    }
   }
   > h2 {
     grid-area:subTitle;
@@ -59,6 +62,10 @@ const Content = styled.div`
     align-self:center;
     font-family: 'Yeseva One', cursive;
     font-size: 30px;
+    animation:  ${uptransation} 0.5s ease-out forwards;
+    @media (max-width: 980px) {
+      font-size: 38px;
+    }
   }
   > p {
     grid-area:body;
@@ -67,10 +74,13 @@ const Content = styled.div`
     height:50vh;
     margin-top: 0px;
     color: white;
+    transition: margin-top 1s ease-out;
+    animation:  ${uptransation} 0.5s ease-out forwards;
     font-family: 'Heebo', sans-serif;
     font-size: 20px;
     font-weight: 100;
     @media (max-width: 980px) {
+      font-size: 28px;
       height: 100%;
     }
   }
@@ -83,6 +93,7 @@ const Picture = styled.div`
   > img {
     width:100%;
     display: block;
+    animation:  ${uptransation} 0.5s ease-out forwards;
     margin: 0 auto;
   }
 `
@@ -101,7 +112,9 @@ const ButtonNav = styled.button`
   &:focus {
     outline: none;
   }
-
+  @media (max-width: 980px) {
+    font-size: 30px;
+  }
 `
 const ButtonDiv = styled.div`
   grid-area:nextPageNav;
@@ -119,19 +132,41 @@ const Seprator = styled.div`
 `
 
 
+function uptransation (props) {
+  return keyframes`
+    0%{
+      opacity: 0;
+      margin-top: 33px;
+    }
+    100% {
+      opacity: 1;
+      margin-top: 0px;
+    }
+  `
+}
+
+function downtransation (props) {
+  return keyframes`
+    to {
+      background-color: #520200;
+    }
+  `
+}
+
+
 class PageDetails extends Component {
 
   nextButton(activePageNumber,activeSectionPagesLength,activeSection){
     console.log(activeSection.pages[activePageNumber+1].subtitle)
     return (
-        <ButtonNav onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
+        <ButtonNav key={'nextButton + activePageNumber'} onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
           {activeSection.pages[activePageNumber+1].subtitle}  <img src = '/imgs/arrowDown.png' />
         </ButtonNav>
     );
   }
   previousButton(activePageNumber,activeSectionPagesLength,activeSection){
     return (
-        <ButtonNav onClick={()=>{this.props.previousPage(activePageNumber,activeSectionPagesLength); }}>
+        <ButtonNav key={'previousButton + activePageNumber'} onClick={()=>{this.props.previousPage(activePageNumber,activeSectionPagesLength); }}>
           {activeSection.pages[activePageNumber-1].subtitle}  <img src = '/imgs/arrowUp.png' />
         </ButtonNav>
     );
@@ -140,27 +175,27 @@ class PageDetails extends Component {
   renderNextPreviousButtons(activePageNumber,activeSectionPagesLength,activeSection) {
     if (activeSectionPagesLength > 1 && activePageNumber == 0) {
       return (
-        <ButtonDiv>
+        <ButtonDiv key={'nextButton'}>
          {this.nextButton(activePageNumber,activeSectionPagesLength,activeSection)}
        </ButtonDiv>
       );
     }
     else if (activeSectionPagesLength <= 1){
       return (
-        <ButtonDiv>
+        <ButtonDiv key={'noButtons'}>
         </ButtonDiv>
       );
 
     }
     else if (activePageNumber == activeSectionPagesLength -1) {
       return (
-        <ButtonDiv>
+        <ButtonDiv key={'previousButton'}>
           {this.previousButton(activePageNumber,activeSectionPagesLength,activeSection)}
         </ButtonDiv>
     );
     } else {
       return (
-        <ButtonDiv>
+        <ButtonDiv key={'twoButtons'}>
           {this.previousButton(activePageNumber,activeSectionPagesLength,activeSection)}
           {this.nextButton(activePageNumber,activeSectionPagesLength,activeSection)}
         </ButtonDiv>
@@ -184,17 +219,17 @@ class PageDetails extends Component {
         transitionAppear={true}
         transitionAppearTimeout={600}
         >
-      <Info>
-        <Content>
-          <h1>{activeSection.title}<Seprator /></h1>
-          <h2>{activePage.subtitle}</h2>
-          <p>{activePage.body}</p>
+      <Info key={'info'}>
+        <Content key={'content'}>
+          <h1 key = {'contenth1' + this.props.activeIndex.activeSection}>{activeSection.title}<Seprator /></h1>
+          <h2 key = {'contenth2' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>{activePage.subtitle}</h2>
+          <p key = {'contenthp' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>{activePage.body}</p>
           {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length,activeSection)}
           <BubblePagercontainer>
             <BubblePager/>
           </BubblePagercontainer>
         </Content>
-        <Picture>
+        <Picture key = {'picture' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>
           <img src = {activePage.coverPic} />
         </Picture>
       </Info>

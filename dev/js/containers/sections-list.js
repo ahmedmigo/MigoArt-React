@@ -22,6 +22,9 @@ const PageNav = styled.ul`
       font-family: 'Heebo', sans-serif;
       font-weight: 300;
       font-size: 20px;
+      @media (max-width: 980px) {
+        font-size: 30px;
+      }
     }
 `
 const Logo = styled.img`
@@ -31,6 +34,9 @@ const Logo = styled.img`
     margin-top: 15px;
     margin-bottom: auto;
     margin-left: 5%;
+    @media (max-width: 980px) {
+      height: 38px;
+    }
 `
 
 const HeaderItems = styled.li`

@@ -39,15 +39,7 @@ class BubblePager extends Component {
   render() {
     return (
         <div>
-          <ReactCSSTransitionGroup
-            transitionName = "fade"
-            transitionEnterTimeout={600}
-            transitionLeaveTimeout={600}
-            transitionAppear={true}
-            transitionAppearTimeout={600}
-            >
             {this.createListItems()}
-          </ReactCSSTransitionGroup>
         </div>
     )
   }
