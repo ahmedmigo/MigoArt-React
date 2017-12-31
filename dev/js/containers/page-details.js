@@ -102,9 +102,9 @@ const Picture = styled.div`
 `
 const ButtonNav = styled.button`
   font-family: 'Heebo', sans-serif;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 20px;
-  color: ${props => props.next ? '#000000' : '#161616'};
+  color: ${props => props.next ? 'white' : '#7F7F7F'};
   border: none;
   margin-left: 10px;
   margin-right: 10px;
@@ -117,7 +117,7 @@ const ButtonNav = styled.button`
     outline: none;
   }
   @media (max-width: 980px) {
-    font-size: 60px;
+    font-size: 30px;
   }
 `
 const ButtonDiv = styled.div`
@@ -131,7 +131,7 @@ const ButtonDiv = styled.div`
 const ButtonArrow = styled.img`
   height: 10px;
   @media (max-width: 980px) {
-    height: 35px;
+    height: 15px;
   }
 `
 
@@ -164,7 +164,12 @@ function downtransation (props) {
   `
 }
 
-
+function getStringLines (newText){
+  newText = newText.split('\n').map((item, i) => {
+    return <br key = {'newline' + 1}>{item}</br>;
+  });
+  return (newText)
+}
 class PageDetails extends Component {
 
   nextButton(activePageNumber,activeSectionPagesLength,activeSection){
@@ -234,7 +239,16 @@ class PageDetails extends Component {
         <Content key={'content'}>
           <h1 key = {'contenth1' + this.props.activeIndex.activeSection}>{activeSection.title}<Seprator /></h1>
           <h2 key = {'contenth2' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>{activePage.subtitle}</h2>
-          <p key = {'contenthp' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>{activePage.body}</p>
+          <p key = {'contenthp' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>
+            {activePage.body.split("\n").map(function(item, key) {
+              return (
+                <span key={'newline' + key}>
+                  {item}
+                  <br/>
+                </span>
+              )
+            })}
+          </p>
           {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length,activeSection)}
           <BubblePagercontainer>
             <BubblePager/>

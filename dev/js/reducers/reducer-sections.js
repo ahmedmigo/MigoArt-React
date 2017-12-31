@@ -4,42 +4,47 @@ const sections = (
             activePage:0,
             pages: [{
                     subtitle: "Overview",
-                    body:"I’m <b>Ahmed Genaidy</b>, UX/UI designer with a Computer Engineering & Business background. I started doing interactive designs 5 years ago. My education helped me understand the business goals of the project I am working on, turning them into an interactive user-friendly product that can be realized by utilizing and pushing the limits of technologies used by the engineers.",
+                    body:"Ahmed Genaidy, UX/UI Designer Lead at fleetster GmbH.\n My Main focus is to make better communication between developers, designers and business. I have experience on developing design language systems and developing sketch plugins to make the designers life easier.",
                     coverPic:"/imgs/overviewPic.png"
                   },
                   {
                     subtitle: "Education",
-                    body:["Faculty of Engineering Ain Shams University, Cairo, Egypt Virtual Reality game using Oculus Rift, Kinect, Leap motion, IMU sensors, Arduino; Unity 3D, C# 8 Programming, 3D Studio Max and Photoshop. Academic Projects: Web Application for Student Activities: Database design, MySQL, HTML, CSS and PHP. Desktop Peer-to-Peer Chatting Applicaiton: Java. Bachelor of Computer Engineering, Class 2012-2016.",
-                    " Global Business Institute Program at Kelley School of Business Indiana University, US (July 2016) Business, Entrepreneurship, Presentation skills, Elevator pitching, Accounting and Leadership skills. (July 2016) Project: Top 12 business models in the program."],
+                    body: "Faculty of Engineering Ain Shams University Egypt. Graduation Project: Virtual Reality game using Oculus Rift, Kinect, Leap motion, IMU sensors, Arduino; Unity 3D, C# 8 Programming, 3D Studio Max and Photoshop. Bachelor of Computer Engineering. \n \nGlobal Business Institute Program at Kelley School of Business Indiana University, US (July 2016) Business, Entrepreneurship, Presentation skills, Elevator pitching, Accounting and Leadership skills. (July 2016) Project: Top 12 business models in the program.",
                     coverPic:"/imgs/education.png"
-                  },
-                  {
-                    subtitle: "SoftSkills",
-                    body:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-                    coverPic:"http://practicalneurology.com/images/article/2017-02/0217_PN_Business_Fig.png"
                   }]
           },
           {
             title: "Projects",
             activePage:0,
             pages: [{
-                    subtitle: "Botit",
-                    body:"Bot for ordering food",
-                    coverPic:"https://d30y9cdsu7xlg0.cloudfront.net/png/415507-200.png"
+                    subtitle: "Cuju App",
+                    body: `Social Training Soccer app, I worked on this app from scratch with “The D GmbH” company.\n  I started this app from the Ideation phase to user work flows, Low fidality diagrams, High Fidality diagrams, Wireframing, UI designing, prototyping and user Testing. In addtion to the branding and branding guildlines.`,
+                    coverPic: "/imgs/cuju.png"
                     },
                     {
                     subtitle: "fleetster",
-                    body:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-                    coverPic:"https://static1.squarespace.com/static/5513db4be4b02a4b04e3bfe4/5559fcdce4b0443afbf1a46b/5559fd58e4b0741e9bedc299/1431960929255/fleetster.png"
-            }]
+                    body:`fleetster corporate car sharing platform, I worked on this project with “fleetster GmbH” company.\n I developed design langauge system for the platform that can be customized for any whitelabel by one click, and turned everything to component based design.`,
+                    coverPic:"/imgs/fleetster.png"
+                    },
+                    {
+                    subtitle: "Smart",
+                    body:`Drop Smart App, I worked on this app with “fleetster GmbH” company.\n I designed design language system for smart app following the smart branding guildlines and I designed the app using this system.`,
+                    coverPic:"/imgs/smart.png"
+                    },
+                    {
+                    subtitle: "botit",
+                    body:`Chatbot app for ordering food, I worked on this app from scratch with “MO4 Networks” company.\n I was leading Team of 6 developers in this product. I was acting as scrum master. I started this app from the Ideation phase to user work flows, Low fidality diagrams, High Fidality diagrams, Wireframing, UI designing, Prototyping and user Testing. In addtion to the branding and branding guildlines.`,
+                    coverPic:"/imgs/botit.png"
+                    }
+          ]
           },
           {
             title: "Contact Me",
             activePage:0,
             pages: [{
                     subtitle: "Contacts",
-                    body:"Bot for ordering food",
-                    coverPic:"https://d30y9cdsu7xlg0.cloudfront.net/png/415507-200.png"
+                    body:"Email: \n ahmad.migo@gmail.com, \n \n Medium: \n https://medium.com/@ser_migo, \n \n twitter: \n https://twitter.com/ser_migo \n \n github: \n https://github.com/ahmedmigo",
+                    coverPic:"/imgs/contactus.png"
                     }]
           }],action) => {
   return state;
