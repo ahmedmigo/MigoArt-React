@@ -9,6 +9,7 @@ const Bubble = styled.div`
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    cursor:pointer;
     margin-bottom: 10px;
     background-color: ${props => props.active == 1 ? '#B80F0A;' : '#0C0C0C;'};
     &:hover {

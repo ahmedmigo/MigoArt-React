@@ -41,6 +41,7 @@ const Logo = styled.img`
 
 const HeaderItems = styled.li`
     transition: color 0.3s ease-out;
+    cursor:pointer;
     color: ${props => props.active == 'true' ? 'white;' : '#A4A4A4;'};
     &:hover {
       color: #B80F0A;

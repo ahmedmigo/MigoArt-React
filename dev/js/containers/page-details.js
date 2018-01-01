@@ -106,6 +106,7 @@ const ButtonNav = styled.button`
   font-size: 20px;
   color: ${props => props.next ? 'white' : '#7F7F7F'};
   border: none;
+  cursor:pointer;
   margin-left: 10px;
   margin-right: 10px;
   background-color: Transparent;
@@ -123,6 +124,7 @@ const ButtonNav = styled.button`
 const ButtonDiv = styled.div`
   grid-area:nextPageNav;
   width: 100%;
+  cursor:pointer;
   text-align:center;
   justify-self: center;
   align-self: center;
@@ -164,11 +166,16 @@ function downtransation (props) {
   `
 }
 
-function getStringLines (newText){
-  newText = newText.split('\n').map((item, i) => {
-    return <br key = {'newline' + 1}>{item}</br>;
-  });
-  return (newText)
+function formatedParagraph (newText){
+  newText = newText.split("\n").map(function(item, key) {
+    return (
+      <span key={'newline' + key}>
+        {item}
+        <br/>
+      </span>
+    )
+  })
+  return newText
 }
 class PageDetails extends Component {
 
@@ -240,14 +247,7 @@ class PageDetails extends Component {
           <h1 key = {'contenth1' + this.props.activeIndex.activeSection}>{activeSection.title}<Seprator /></h1>
           <h2 key = {'contenth2' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>{activePage.subtitle}</h2>
           <p key = {'contenthp' + this.props.activeIndex.activeSection + this.props.activeIndex.activePage}>
-            {activePage.body.split("\n").map(function(item, key) {
-              return (
-                <span key={'newline' + key}>
-                  {item}
-                  <br/>
-                </span>
-              )
-            })}
+            {formatedParagraph(activePage.body)}
           </p>
           {this.renderNextPreviousButtons(this.props.activeIndex.activePage,activeSection.pages.length,activeSection)}
           <BubblePagercontainer>
