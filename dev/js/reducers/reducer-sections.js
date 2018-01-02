@@ -43,7 +43,7 @@ const sections = (
             activePage:0,
             pages: [{
                     subtitle: "Contacts",
-                    body:"Email: \n ahmad.migo@gmail.com \n \n Medium: \n https://medium.com/@ser_migo adsas \n \n Twitter: \n https://twitter.com/ser_migo \n \n Github: \n https://github.com/ahmedmigo",
+                    body:"Email: \n ahmad.migo@gmail.com \n \n Dribbble: \n https://dribbble.com/migoart \n \n Medium: \n https://medium.com/@ser_migo \n \n Twitter: \n https://twitter.com/ser_migo \n \n Github: \n https://github.com/ahmedmigo",
                     coverPic:"/imgs/contactus.png"
                     }]
           }],action) => {
