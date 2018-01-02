@@ -75,6 +75,7 @@ const Content = styled.div`
     align-self:start;
     overflow:auto;
     height:50vh;
+    link="white";
     margin-top: 0px;
     color: white;
     transition: margin-top 1s ease-out;
@@ -88,6 +89,21 @@ const Content = styled.div`
     }
   }
 `
+const LinkText = styled.a`
+  color: white;
+  transition: color 0.3s ease-out;
+  &:visited {
+    color: white;
+  }
+  &:hover {
+    color: #B80F0A;
+  }
+  &:active {
+    color: #B80F0A;
+  }
+`
+
+
 const Picture = styled.div`
   overflow: hidden;
   grid-area: picture;
@@ -166,11 +182,47 @@ function downtransation (props) {
   `
 }
 
+function hyberlinkStringArrary (string) {
+  var iStart = string.indexOf("https://");
+  var stringhyberLinksArray = []
+  if (iStart != -1) {
+    var splitStrign = string.substr(iStart,string.length-1)
+    var iEnd = splitStrign.indexOf(' ');
+    if(iEnd!= -1) {
+      splitStrign = string.substr(iEnd,string.length-1)
+      if (iStart != 0)
+      {
+        stringhyberLinksArray.push(string.substr(0,iStart-1))
+      }
+      stringhyberLinksArray.push(string.substr(iStart,iEnd))
+      stringhyberLinksArray.concat(hyberlinkStringArrary(splitStrign))
+    } else {
+        if (iStart != 0)
+        {
+          stringhyberLinksArray.push(string.substr(0,iStart-1))
+        }
+        stringhyberLinksArray.push(string.substr(iStart,string.length-1))
+    }
+      return stringhyberLinksArray;
+  } else {
+    stringhyberLinksArray.push(string)
+    return stringhyberLinksArray;
+  }
+}
+
 function formatedParagraph (newText){
   newText = newText.split("\n").map(function(item, key) {
     return (
       <span key={'newline' + key}>
-        {item}
+        {hyberlinkStringArrary(item).map(function(string, index){
+                    if (string.substr(0,8) == "https://"){
+                      return (
+                        <LinkText key={"hyberLink" + index } href={string} target="_blank">{string}</LinkText>
+                      )
+                    } else {
+                      return <span key={"text" + index }>{string}</span> ;
+                    }
+                 })}
         <br/>
       </span>
     )
@@ -180,7 +232,6 @@ function formatedParagraph (newText){
 class PageDetails extends Component {
 
   nextButton(activePageNumber,activeSectionPagesLength,activeSection){
-    console.log(activeSection.pages[activePageNumber+1].subtitle)
     return (
         <ButtonNav next key={'nextButton + activePageNumber'} onClick={()=>{this.props.nextPage(activePageNumber,activeSectionPagesLength); }}>
           {activeSection.pages[activePageNumber+1].subtitle}  <ButtonArrow src = '/imgs/arrowDown.png' />
@@ -233,7 +284,6 @@ class PageDetails extends Component {
 
     var activeSection = this.props.sections[this.props.activeIndex.activeSection];
     var activePage = activeSection.pages[this.props.activeIndex.activePage];
-    console.log(activeSection.title,activePage)
     return (
       <ReactCSSTransitionGroup
         transitionName = "fade"

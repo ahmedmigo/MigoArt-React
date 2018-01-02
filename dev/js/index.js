@@ -13,7 +13,7 @@ import App from './components/app'
 //   next(action);
 // }
 
-const store = createStore(allReducers,{},applyMiddleware(logger()));
+const store = createStore(allReducers,{},applyMiddleware());
 
 ReactDOM.render(
   <Provider store={store}>
